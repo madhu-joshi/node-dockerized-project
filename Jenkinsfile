@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker:dind'
+            args '--privileged'
+        }
+    }
     tools {
         nodejs 'NodeJS'
     }
@@ -24,7 +29,7 @@ pipeline {
 
         stage("Build Image"){
             steps{
-                sh '/usr/local/bin/docker build -t my-node-app:1.0 .'
+                sh 'docker build -t my-node-app:1.0 .'
             }
         }
     }
