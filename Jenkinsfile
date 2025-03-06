@@ -29,7 +29,7 @@ pipeline {
 
         stage("Build Image"){
             steps{
-                sh 'docker build -t my-node-app:1.0 .'
+                sh '/usr/local/bin/docker build -t my-node-app:1.0 .'
             }
         }
     }
