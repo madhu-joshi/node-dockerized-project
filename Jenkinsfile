@@ -37,6 +37,7 @@ pipeline {
                         -Dsonar.login=$SONAR_TOKEN
                     '''
                 }
+            }
         }
 
         stage('Quality Gate') {
