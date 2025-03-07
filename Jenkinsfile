@@ -4,7 +4,8 @@ pipeline {
         SONAR_TOKEN = credentials('sonarqube')
     }
     tools {
-        nodejs 'NodeJS'
+        nodejs 'NodeJS',
+        maven 'Maven-3.9.9'
     }
     stages{
         stage("checkout"){
@@ -28,13 +29,7 @@ pipeline {
         stage('SonarCloud Analysis') {
             steps {
                 withSonarQubeEnv('SonarCloud') {
-                    sh """
-                    mvn sonar:sonar \
-                      -Dsonar.projectKey=madhu-s-joshi_node-jenkins \
-                      -Dsonar.organization=madhu.s.joshi \
-                      -Dsonar.host.url=https://sonarcloud.io \
-                      -Dsonar.login=$SONAR_TOKEN
-                    """
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=madhu-s-joshi_node-jenkins -Dsonar.organization=madhu.s.joshi -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN'
                 }
             }
         }
