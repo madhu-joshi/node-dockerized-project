@@ -5,7 +5,7 @@ pipeline {
     }
     tools {
         nodejs 'NodeJS'
-        maven 'Maven'
+        maven 'maven'
     }
     stages{
         stage("checkout"){
