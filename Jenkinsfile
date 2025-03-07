@@ -4,8 +4,8 @@ pipeline {
         SONAR_TOKEN = credentials('sonarqube')
     }
     tools {
-        nodejs 'NodeJS',
-        maven 'Maven-3.9.9'
+        nodejs 'NodeJS'
+        maven 'Maven'
     }
     stages{
         stage("checkout"){
