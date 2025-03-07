@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        SONAR_TOKEN = credentials('sonarqube')
+    }
     tools {
         nodejs 'NodeJS'
     }
@@ -19,6 +22,30 @@ pipeline {
         stage("Build"){
             steps{
                 sh 'npm run build'
+            }
+        }
+
+        stage('SonarCloud Analysis') {
+            steps {
+                withSonarQubeEnv('SonarCloud') {
+                    sh """
+                    mvn sonar:sonar \
+                      -Dsonar.projectKey=madhu-s-joshi_node-jenkins \
+                      -Dsonar.organization=madhu.s.joshi \
+                      -Dsonar.host.url=https://sonarcloud.io \
+                      -Dsonar.login=$SONAR_TOKEN
+                    """
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                script {
+                    timeout(time: 1, unit: 'MINUTES') {
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
             }
         }
 
