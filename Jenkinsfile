@@ -29,7 +29,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarCloud') {
                     sh '''
-                    sonar-scanner \
+                    /usr/local/bin/sonar-scanner \
                         -Dsonar.projectKey=madhu-s-joshi_node-jenkins \
                         -Dsonar.organization=madhu-s-joshi \
                         -Dsonar.sources=. \
